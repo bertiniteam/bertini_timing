@@ -1,0 +1,11 @@
+bin_PROGRAMS += b1_timing
+
+b1_timing_SOURCES = \
+	src/b1_timing.cpp
+
+
+b1_timing_LDADD = $(BOOST_FILESYSTEM_LIB) $(BOOST_SYSTEM_LIB)  $(BOOST_CHRONO_LIB) $(BOOST_REGEX_LIB) $(BOOST_TIMER_LIB) $(MPI_CXXLDFLAGS) -lbertini2
+
+#libpartitionParse.a
+
+b1_timing_CXXFLAGS = $(BOOST_CPPFLAGS)

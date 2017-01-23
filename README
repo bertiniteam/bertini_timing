@@ -1,0 +1,7 @@
+Welcome to B1_timing, software for timing of Bertini1.  
+
+Please read COPYING for information regarding the re-distribution of this program and its code.
+
+This software depends on having installations of the following libraries: bertini, boost-all, mpfr, gmp, and mpi.  If you do not have one or more of these libraries, B1_timing will not compile.  For installation instructions, see the file INSTALL.  B1_timing uses the standard ./configure make make install pattern.   
+
+For information regarding the authors, please see AUTHORS.  The ChangeLog and NEWS files are present but not used.  For more information about this package, please visit https://github.com/fpancald/b1_timing.
