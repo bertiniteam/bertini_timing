@@ -10,14 +10,20 @@ int main(int nArgs, char* Args[])
 
     FILE *fpA_b1, *fpx_b1, *fpb_b1, *fpelem_b1;//initiate file pointers for b1
     // std::ofstream fpA_b2, fpx_b2, fpb_b2;
+	
+	int prec_b1, size, iter;
 	if(nArgs<4)
 	{
-		int prec_b1=1024, size=10, iter=1;//test parameters: prec_b1= bit precision, size=square matrix size, iter=number of repetition
-		std::cout << "Not enough argument entered.\n Program will be executed with default parameters.\n bit_precision="<<prec_b1<<", size="<<size<<"iterations="<<iter<<" \n";
+		prec_b1=1024;
+        size=10;
+        iter=1;//test parameters: prec_b1= bit precision, size=square matrix size, iter=number of repetition
+		std::cout << "Not enough arguments entered.\n Program will be executed with default parameters.\n bit_precision="<<prec_b1<<", size="<<size<<", iterations="<<iter<<" \n";
 	}
 	else	
 	{
-		int prec_b1=atoi(Args[1]), size=atoi(Args[2]), iter=atoi(Args[3]);
+		prec_b1=atoi(Args[1]);
+        size=atoi(Args[2]);
+        iter=atoi(Args[3]);
 	}
     initMP(prec_b1);
 
