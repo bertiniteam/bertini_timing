@@ -1,0 +1,7 @@
+4/08/2016 Added Git Repository for b1_timing (with appropriate .gitignore); modified authors; solved dependencies for b1; modified README;modified configure.ac;modified COPYING; License not specified;
+
+2/13/15 Added authors to AUTHORS file.
+
+1/19/15
+Added Autotools support for building the software.
+
