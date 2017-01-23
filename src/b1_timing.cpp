@@ -10,10 +10,15 @@ int main(int nArgs, char* Args[])
 
     FILE *fpA_b1, *fpx_b1, *fpb_b1, *fpelem_b1;//initiate file pointers for b1
     // std::ofstream fpA_b2, fpx_b2, fpb_b2;
-
-		// int prec_b1=1024, size=10, iter=1;//test parameters: prec_b1= bit precision, size=square matrix size, iter=number of repetition
-    int prec_b1=atoi(Args[1]), size=atoi(Args[2]), iter=atoi(Args[3]);
-
+	if(nArgs<4)
+	{
+		int prec_b1=1024, size=10, iter=1;//test parameters: prec_b1= bit precision, size=square matrix size, iter=number of repetition
+		std::cout << "Not enough argument entered.\n Program will be executed with default parameters.\n bit_precision="<<prec_b1<<", size="<<size<<"iterations="<<iter<<" \n";
+	}
+	else	
+	{
+		int prec_b1=atoi(Args[1]), size=atoi(Args[2]), iter=atoi(Args[3]);
+	}
     initMP(prec_b1);
 
     int prec_b2=log10(prec_b1)/log2(prec_b1)*prec_b1;//convert precision in bits for b1 in precision in digits for b2
@@ -50,7 +55,7 @@ int main(int nArgs, char* Args[])
     Eigen::IOFormat HeavyFmt(sprec, 0, ", ", ";\n", "[", "]", "[", "]");
     std::string sep = "\n----------------------------------------\n";
 
-    for_start=std::chrono::system_clock::now();//start count for overall time
+    for_start=std::chrono::high_resolution_clock::now();//start count for overall time
 
     int tmp=0;//for-loop varaibles
     int i,j,k;
@@ -194,7 +199,7 @@ int main(int nArgs, char* Args[])
     // buffer.str("");
     // buffer.clear();
 /*computation routine for b1. Uncomment the desired solver.*/
-    ct1_b1=std::chrono::system_clock::now();//start timing of one iteration for b1
+    ct1_b1=std::chrono::high_resolution_clock::now();//start timing of one iteration for b1
 
     // matrixSolve_mp( x_b1, A_b1, b_b1);//b1 solver
     // matrixSolve_cond_num_norms_mp( x_b1,  A_b1,  b_b1,  &cond_num,  &norm_A,  &norm_A_inv);
@@ -205,10 +210,10 @@ int main(int nArgs, char* Args[])
     // matrixSolve_Least_Squares_mp2( x_b1,  A_b1,  b_b1,  mpftol,  mpflargeChange,  &cond_num,  &norm_A,  &norm_A_inv);
     // matrixSolve_Hessenberg_Least_Squares_mp( x_b1,  A_b1,  b_b1, mpftol, mpflargeChange);
 /*computation routine for b2. Uncomment the desired solver.*/
-    ct2_b1=std::chrono::system_clock::now();//end timing of one iteration for b1
+    ct2_b1=std::chrono::high_resolution_clock::now();//end timing of one iteration for b1
     elapsed_seconds_b1 += ct2_b1-ct1_b1;//update total solving timing for b1
 
-    ct1_b2=std::chrono::system_clock::now();//start timing of one iteration for b2
+    ct1_b2=std::chrono::high_resolution_clock::now();//start timing of one iteration for b2
 
     // x_b2 = A_b2.colPivHouseholderQr().solve(b_b2);//b2solver
     // x_b2 = A_b2.householderQr().solve(b_b2);
@@ -216,7 +221,7 @@ int main(int nArgs, char* Args[])
     // x_b2 = A_b2.jacobiSvd().solve(b_b2);
     x_b2 = A_b2.partialPivLu().solve(b_b2);
 
-    ct2_b2=std::chrono::system_clock::now();//end timing of one iteration for b2
+    ct2_b2=std::chrono::high_resolution_clock::now();//end timing of one iteration for b2
     elapsed_seconds_b2 += ct2_b2-ct1_b2;//update total solving timing for b2
 
     /*write to file routine to check for  result vector. Uncomment to produce files. Increases considerably overall time and matrix and vector file might be big depending on the precision and number of operation used*/
@@ -246,7 +251,7 @@ int main(int nArgs, char* Args[])
           std::cout << "elapsed time for linear algebra operations in b2: " << elapsed_seconds_b2.count() << "s\n"; }
 	       }
     }
-    for_end=std::chrono::system_clock::now();//end total timing of for-loop
+    for_end=std::chrono::high_resolution_clock::now();//end total timing of for-loop
     for_laps=for_end-for_start;//calculate total for-loop time
 
     std::cout << "Percentage complete: 100%\n";
